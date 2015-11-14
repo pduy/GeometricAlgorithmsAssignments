@@ -1,0 +1,53 @@
+% !TEX root = ../main.tex
+
+\section*{1}
+
+\begin{algorithm}[h]
+  \caption{SmallConvexHull}
+  \label{alg:smallconvexhull}
+  \begin{algorithmic}
+      \Require set of points $P$
+      
+      \If {$|P| < 5 $}
+      	\State return true
+      \EndIf
+
+     \State Find $P_1$, $P_2$, the left-most and the right-most points from $P$
+     \State Find $P_3 \in P$, which is the farthest point from the line $P_1 P_2$     
+     \State Find $P_4 \in P$, which is the farthest point from the triangle $P_1 P_2 P_3$ and outside the triangle region.
+     
+     \If{$P4$ does not exist}
+     \State return true
+     \EndIf
+     
+     \If {One point in $P$ is outside the polygon $P_1 P_2 P_3 P_4$}
+     \State return false
+     \EndIf
+       
+     \State return true
+
+\end{algorithmic}
+\end{algorithm}
+
+\begin{proof}
+We will prove that the algorithm returns the correct result. \\
+
+The convex hull covers all of the points in the set ($P$), by definition. Therefore, it covers the left-most and the right-most points; so $P_1$ and $P_2$ belong to the resulting convex hull of the set $P$. \\
+
+$P_3$ is the farthest point from the line $P_1 P_2$. If $P_3$ does not belong to the convex hull, then the convex hull does not cover $P_3$. It contradicts the definition of the convex hull. Thus, $P_3$ must belong to the convex hull. \\
+
+Similarly, $P4$ is the farthest point from the triangle $P_1 P_2 P_3$, which means $P4$ must belong to the convex hull. \\
+
+If in the set $P$, there is a point outside of the polygon $P_1 P_2 P_3 P_4$, then we need more points to construct the convex hull because these 4 points are proven to be in the resulting convex hull. Thus, the convex hull contains more than 4 vertices. Otherwise, the convex hull obviously contains less than 5 vertices. \\
+
+Therefore, the algorithm is correct. \\
+
+Now, we will prove that the algorithm runs in $O(n)$ time. \\
+
+For finding $P_i, 1 \leq i \leq 4$, it takes $O(n)$ time. \\
+
+For checking that if any point is outside of the polygon, it takes $O(n)$ time. \\
+
+Therefore, the overall time complexity is $O(n)$.
+\end{proof}
+
