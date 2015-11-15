@@ -1,3 +1,5 @@
+% !TEX root = ../main.tex
+
 \section*{3}
 \subsection*{(a)}
 Our rectangle is a region of $2 \delta \times \delta$. \\
@@ -14,4 +16,24 @@ Similarly, we do the same thing for the other half of the rectangle, however we 
 Therefore, the number of points in the rectangle is bounded by a constant.
 
 \subsection*{(b)}
+
+\begin{algorithm}[h]
+  \caption{PaneSweepThree-Disk}
+  \label{alg:panesweep}
+  \begin{algorithmic}
+      \Require set of points $P$
+      \State Initialize $Q$ an event queue and $S$ a structure storing status of $p \in P$ and $\delta \leftarrow 0$
+      \State Sort $P$ in $y$ value in descending order and put it into $Q$
+      \State Sort $P$ in $x$ value in ascending order ant put it into $S$
+      \State Construct the first three-disk from $p_1, p_2$ and $p_3$ and update $\delta$
+      \For{  $p_i \in P$ where $3 < i < n$}
+	\State Remove $p_j$ from $S$ where  $ p_{j.y} > \delta + p_{i.y} $
+	\State Find $R$, a set of points whose $x$ value is in the range  $[ \delta - p_{i.x}, \delta + p_{i.x} ]$ from $S$
+	\If{ $|R| > 1$ }
+	\State Find a smaller three-disk by trying all combination of $R \cup \{p_i\}$ and update $\delta$
+	\EndIf
+      \EndFor
+      \State report $\delta$
+\end{algorithmic}
+\end{algorithm}
 
