@@ -14,4 +14,10 @@ Similarly, we do the same thing for the other half of the rectangle, however we 
 Therefore, the number of points in the rectangle is bounded by a constant.
 
 \subsection*{(b)}
+The algorithm returns the correct solution. If there is a smaller three-disk in the set of points, it should be covered when the seep line scans through the lowest point among the three, and $\delta$ will be updated.\\
 
+Instead of comparing every combination, it scans from the top point to the bottom point and update the smallest three-disk at each step. At each step, the number of combinations needed to find a new diameter is a constant because the numbers of points inside the rectangle of size $2 \delta \times \delta$ is bounded by a constant, as being proven in part (a). \\
+
+The cost of sorting the events is $O(n\log n)$. \\
+
+The degenerate case is when we have  
