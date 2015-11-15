@@ -1,0 +1,17 @@
+\section*{3}
+\subsection*{(a)}
+Our rectangle is a region of $2 \delta \times \delta$. \\
+
+Because $\delta$ is the smallest diameter among all three-disks, then the maximum distance among any three points must be at least some constant factor of $\delta$. (Indeed, if the three points create an equilateral triangle, then the distance is 
+$\frac{\sqrt(3) \cdot \delta} {2}$. If the third point is very close to the line created from the first 2 points, then the maximum distance is $\delta$).\\
+
+Now we try to put as many points as possible into the rectangle region, following the rule: there are no three-disks with diameters less than $\delta$. It is obvious that we have to put the points at a smallest possible distance to each other. \\
+
+To maximize the number of the points, we will put the first point $P_1$ in the center of the left border of the rectangle. Then we can insert the next point $P_2$ at a very close position to $P_1$ (much smaller than $\delta$). Then the next point $P_3$ must be at least at a distance of $\delta$ from either $P_1$ or $P_2$. There is also the other case when we put $P_2, P_3$ in which $P_1P_2P_3$ forms an equilateral triangle, and the distance of the edges is $\frac{\sqrt(3) \cdot \delta} {2}$. If we put any other point, there will be 3 points that create a smaller disk. \\
+
+Similarly, we do the same thing for the other half of the rectangle, however we have to take care of the situation when there are 3 points close to the center of the rectangle which can form a smaller three-disk. \\
+
+Therefore, the number of points in the rectangle is bounded by a constant.
+
+\subsection*{(b)}
+
