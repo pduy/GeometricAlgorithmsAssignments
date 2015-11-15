@@ -1,3 +1,5 @@
+% !TEX root = ../main.tex
+
 \section*{3}
 \subsection*{(a)}
 Our rectangle is a region of $2 \delta \times \delta$. \\
@@ -14,10 +16,38 @@ Similarly, we do the same thing for the other half of the rectangle, however we 
 Therefore, the number of points in the rectangle is bounded by a constant.
 
 \subsection*{(b)}
-The algorithm returns the correct solution. If there is a smaller three-disk in the set of points, it should be covered when the seep line scans through the lowest point among the three, and $\delta$ will be updated.\\
+
+\begin{algorithm}[h]
+  \caption{PaneSweepThree-Disk}
+  \label{alg:panesweep}
+  \begin{algorithmic}
+      \Require set of points $P$
+      \State Initialize $Q$ an event queue and $S$ a status data structure storing $p_{i.x}$ and $\delta \leftarrow 0$
+      \State Sort $P$ in $y$ value in descending order and put it into $Q$
+      \State Construct the first three-disk from $p_1, p_2$ and $p_3$ and update $\delta$
+      \For{  $p_i \in P$ where $3 < i < n$}
+	\State Remove $p_j$ from $S$ where  $ p_{j.y} > \delta + p_{i.y} $
+	\State Add $p_{i.x}$ to $S$
+	\State Find $R$, a set of points whose $x$ value is in the range  $[ p_{i.x} - \delta,  p_{i.x} + \delta ]$ from $S$
+	\If{ $|R| > 1$ }
+	\State Find a smaller three-disk by trying all combination of $R \cup \{p_i\}$ and update $\delta$
+	\EndIf
+      \EndFor
+      \State report $\delta$
+\end{algorithmic}
+\end{algorithm}
+
+In this algorithm, we use array for $Q$ and a Binary Search Tree for $S$.  \\
+
+The algorithm returns the correct solution. If there is a smaller three-disk in the set of points, it should be covered when the 
+sweep line scans through the lowest point among the three, and $\delta$ will be updated.\\
 
 Instead of comparing every combination, it scans from the top point to the bottom point and update the smallest three-disk at each step. At each step, the number of combinations needed to find a new diameter is a constant because the numbers of points inside the rectangle of size $2 \delta \times \delta$ is bounded by a constant, as being proven in part (a). \\
 
 The cost of sorting the events is $O(n\log n)$. \\
 
-The degenerate case is when we have  
+For each of the event point, each removal from the S takes constant time, the insertion also takes $O(\log n)$ time, the extraction of the values inside the rectangle depends on the number of items inside that range - which is bounded by a constant as being proven above. \\
+
+So in the normal case, the algorithm runs in $O(n \log n)$ time. \\
+
+The degenerate case is when most of the points ($O(n)$) are inside the range $\delta$, then the removal is costly. In such a case, it takes $O(n)$ to remove every item above the range of $\delta$. Then the algorithm runs in $O(n^2)$ time.\\
