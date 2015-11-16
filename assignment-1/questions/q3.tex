@@ -9,9 +9,9 @@ $\frac{\sqrt(3) \cdot \delta} {2}$. If the third point is very close to the line
 
 Now we try to put as many points as possible into the rectangle region, following the rule: there are no three-disks with diameters less than $\delta$. It is obvious that we have to put the points at a smallest possible distance to each other. \\
 
-To maximize the number of the points, we will put the first point $P_1$ in the center of the left border of the rectangle. Then we can insert the next point $P_2$ at a very close position to $P_1$ (much smaller than $\delta$). Then the next point $P_3$ must be at least at a distance of $\delta$ from either $P_1$ or $P_2$. There is also the other case when we put $P_2, P_3$ in which $P_1P_2P_3$ forms an equilateral triangle, and the distance of the edges is $\frac{\sqrt(3) \cdot \delta} {2}$. If we put any other point, there will be 3 points that create a smaller disk, which violates the rule. So this is the best that we can do for the left half of the rectangle.\\
+To maximize the number of the points, we will put the first point $P_1$ in the center of the left border of the rectangle. Then we can insert the next point $P_2$ at a very close position to $P_1$ (much smaller than $\delta$). Then the next point $P_3$ must be at least at a distance of $\delta$ from either $P_1$ or $P_2$. There is also the other case when we put $P_2, P_3$ in which $P_1P_2P_3$ forms an equilateral triangle, and the distance of the edges is $\frac{\sqrt(3) \cdot \delta} {2}$. If we put more points, there will be some 3 points that create a smaller disk, which violates the rule. So this is the best that we can do for the left half of the rectangle.\\
 
-Similarly, we do the same thing for the other half of the rectangle, however we have to take care of the situation when there are 3 points close to the center of the rectangle which can form a smaller three-disk. \\
+Similarly, we do the same thing for the other half of the rectangle, however we have to take care of the situation when there are 3 points close to the center of the rectangle which can form a smaller three-disk, which is also another constraint. \\
 
 Therefore, the number of points in the rectangle is bounded by a constant.
 
@@ -38,7 +38,7 @@ Therefore, the number of points in the rectangle is bounded by a constant.
 \end{algorithmic}
 \end{algorithm}
 
-The detailed description is in algorithm \ref{alg:planesweep}. In this algorithm, we use array for $Q$ and a Binary Search Tree for $S$. Instead of comparing every combination, it scans from the top point to the bottom point and update the smallest three-disk at each step. \\
+The detailed description is in algorithm \ref{alg:planesweep}. In this algorithm, we use an array for $Q$ and a Binary Search Tree for $S$. Instead of comparing every combination, it scans from the top point to the bottom point and update the smallest three-disk at each step. \\
 
 The algorithm returns the correct solution. If there is a smaller three-disk in the set of points, it should be covered when the algorithm handles the lowest point among the three, and $\delta$ will be updated.\\
 
@@ -48,4 +48,4 @@ For each of the event point, each removal from $S$ takes constant time, and the 
 
 Let $k$ be the number of points to be deleted at a time. In the normal case, if $k = O(\log n)$, the algorithm runs in $O(n \log n)$ time. \\
 
-The degenerate case is when most of the points ($k = O(n)$) are inside the range $\delta$, and the next point is very far, then the removal is costly because we need to remove $k$ points after leaving that range. In such a case, it takes $O(n)$ to remove every item above the range of $\delta$. Then the algorithm runs in $O(n^2)$ time.\\
+The degenerate case is when most of the points ($k = O(n)$) are inside the range $\delta$ (and the x-coordinates spread widely), and the next point is very far below, then the removal is costly because we need to remove $k$ points after leaving that range. In such a case, it takes $O(n)$ to remove every item above the range of $\delta$. Then the algorithm runs in $O(n^2)$ time.\\
