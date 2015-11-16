@@ -2,14 +2,14 @@
 
 \section*{3}
 \subsection*{(a)}
-Our rectangle is a region of $2 \delta \times \delta$. \\
+Our rectangle is a region of size $2 \delta \times \delta$. \\
 
 Because $\delta$ is the smallest diameter among all three-disks, then the maximum distance among any three points must be at least some constant factor of $\delta$. (Indeed, if the three points create an equilateral triangle, then the distance is 
 $\frac{\sqrt(3) \cdot \delta} {2}$. If the third point is very close to the line created from the first 2 points, then the maximum distance is $\delta$).\\
 
 Now we try to put as many points as possible into the rectangle region, following the rule: there are no three-disks with diameters less than $\delta$. It is obvious that we have to put the points at a smallest possible distance to each other. \\
 
-To maximize the number of the points, we will put the first point $P_1$ in the center of the left border of the rectangle. Then we can insert the next point $P_2$ at a very close position to $P_1$ (much smaller than $\delta$). Then the next point $P_3$ must be at least at a distance of $\delta$ from either $P_1$ or $P_2$. There is also the other case when we put $P_2, P_3$ in which $P_1P_2P_3$ forms an equilateral triangle, and the distance of the edges is $\frac{\sqrt(3) \cdot \delta} {2}$. If we put any other point, there will be 3 points that create a smaller disk. \\
+To maximize the number of the points, we will put the first point $P_1$ in the center of the left border of the rectangle. Then we can insert the next point $P_2$ at a very close position to $P_1$ (much smaller than $\delta$). Then the next point $P_3$ must be at least at a distance of $\delta$ from either $P_1$ or $P_2$. There is also the other case when we put $P_2, P_3$ in which $P_1P_2P_3$ forms an equilateral triangle, and the distance of the edges is $\frac{\sqrt(3) \cdot \delta} {2}$. If we put any other point, there will be 3 points that create a smaller disk, which violates the rule. So this is the best that we can do for the left half of the rectangle.\\
 
 Similarly, we do the same thing for the other half of the rectangle, however we have to take care of the situation when there are 3 points close to the center of the rectangle which can form a smaller three-disk. \\
 
@@ -18,36 +18,34 @@ Therefore, the number of points in the rectangle is bounded by a constant.
 \subsection*{(b)}
 
 \begin{algorithm}[h]
-  \caption{PaneSweepThree-Disk}
-  \label{alg:panesweep}
+  \caption{PlaneSweepThree-Disk}
+  \label{alg:planesweep}
   \begin{algorithmic}
       \Require set of points $P$
-      \State Initialize $Q$ an event queue and $S$ a status data structure storing $p_{i.x}$ and $\delta \leftarrow 0$
+      \State Initialize an event queue $Q$ and a status data structure $S$ storing $p_{i.x}$ 
+      \State $\delta \leftarrow 0$
       \State Sort $P$ in $y$ value in descending order and put it into $Q$
-      \State Construct the first three-disk from $p_1, p_2$ and $p_3$ and update $\delta$
-      \For{  $p_i \in P$ where $3 < i < n$}
+      \State Construct the first three-disk from the first 3 elements $p_1, p_2$ and $p_3$ from $Q$ and update $\delta$
+      \For{$p_i \in Q$ where $3 < i < n$}
 	\State Remove $p_j$ from $S$ where  $ p_{j.y} > \delta + p_{i.y} $
 	\State Add $p_{i.x}$ to $S$
 	\State Find $R$, a set of points whose $x$ value is in the range  $[ p_{i.x} - \delta,  p_{i.x} + \delta ]$ from $S$
 	\If{ $|R| > 1$ }
-	\State Find a smaller three-disk by trying all combination of $R \cup \{p_i\}$ and update $\delta$
+	\State Find a smaller three-disk by trying all combinations of $R \cup \{p_i\}$ and update $\delta$
 	\EndIf
       \EndFor
       \State report $\delta$
 \end{algorithmic}
 \end{algorithm}
 
-In this algorithm, we use array for $Q$ and a Binary Search Tree for $S$.  \\
+The detailed description is in algorithm \ref{alg:planesweep}. In this algorithm, we use array for $Q$ and a Binary Search Tree for $S$. Instead of comparing every combination, it scans from the top point to the bottom point and update the smallest three-disk at each step. \\
 
-The algorithm returns the correct solution. If there is a smaller three-disk in the set of points, it should be covered when the 
-sweep line scans through the lowest point among the three, and $\delta$ will be updated.\\
-
-Instead of comparing every combination, it scans from the top point to the bottom point and update the smallest three-disk at each step. At each step, the number of combinations needed to find a new diameter is a constant because the numbers of points inside the rectangle of size $2 \delta \times \delta$ is bounded by a constant, as being proven in part (a). \\
+The algorithm returns the correct solution. If there is a smaller three-disk in the set of points, it should be covered when the algorithm handles the lowest point among the three, and $\delta$ will be updated.\\
 
 The cost of sorting the events is $O(n\log n)$. \\
 
-For each of the event point, each removal from the S takes constant time, the insertion also takes $O(\log n)$ time, the extraction of the values inside the rectangle depends on the number of items inside that range - which is bounded by a constant as being proven above. \\
+For each of the event point, each removal from $S$ takes constant time, and the total removal time depends on the number of points to be deleted, the insertion also takes $O(\log n)$ time, the extraction of the values inside the rectangle depends on the number of items inside that range - which is bounded by a constant, the number of combinations needed to find a new diameter is also a constant (because the numbers of points inside the rectangle of size $2 \delta \times \delta$ is bounded by a constant, as being proven in part (a)).\\
 
-So in the normal case, the algorithm runs in $O(n \log n)$ time. \\
+Let $k$ be the number of points to be deleted at a time. In the normal case, if $k = O(\log n)$, the algorithm runs in $O(n \log n)$ time. \\
 
-The degenerate case is when most of the points ($O(n)$) are inside the range $\delta$, then the removal is costly. In such a case, it takes $O(n)$ to remove every item above the range of $\delta$. Then the algorithm runs in $O(n^2)$ time.\\
+The degenerate case is when most of the points ($k = O(n)$) are inside the range $\delta$, and the next point is very far, then the removal is costly because we need to remove $k$ points after leaving that range. In such a case, it takes $O(n)$ to remove every item above the range of $\delta$. Then the algorithm runs in $O(n^2)$ time.\\
