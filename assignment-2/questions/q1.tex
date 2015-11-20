@@ -1,5 +1,34 @@
 % !TEX root = ../main.tex
 
 \section*{1}
+\begin{itemize}
+    \item Given a simple polygon $P$ a with $n$ vertices.
+    \item Perform triangulation on $P$.
+    \item Construct the dual graph $G$ of $P$.
+    \item Find a root node $R$ of $G$ whose degree is 1.
+    \item Perform $LabelNumberOfChildNodes(G,R)$.
+    \item Select the node $v_i$ whose label is $n$ where $n = max(label_i,0<i<n \text{ and } label_i \leq \lfloor 2n/3\rfloor )$
+    \item Find the diagonal line corresponding to the edge between $v_i$ and its parent.
+\end{itemize}
 
-\end{proof}
+\begin{algorithm}[h]
+  \caption{LabelNumberOfChildNodes}
+  \label{alg:LabelNumberOfChildNodes}
+  \begin{algorithmic}
+      \Require a dual graph $G$ and a node $v_i$
+      \State Label $v_i$ as $Visited$
+      \If{$degree(v_i) > 1 $}
+      \State $NumNodes = 0$
+      \For{Each neighbor $v_j$ of $v_i$}
+      \If{$v_j$ is not $Visited$}
+      \State $NumNodes$ = $NumNodes + LabelNumberOfChildNodes(G, v_j)$
+      \EndIf
+      \EndFor
+      \State $label_i = 1 + NumNodes$
+      \State Return $label_i$
+      \Else
+      \State $label_i = 1$
+      \State Return $label_i$
+      \EndIf
+\end{algorithmic}
+\end{algorithm}
