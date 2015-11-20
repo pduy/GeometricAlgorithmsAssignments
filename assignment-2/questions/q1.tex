@@ -32,3 +32,34 @@
       \EndIf
 \end{algorithmic}
 \end{algorithm}
+
+\subsection*{Correctness}
+The first case is when we can pick the node with the exact label, that is $\lfloor2n/3\rfloor$.
+In this case, one polygon that the algorithm returns has exactly $\lfloor2n/3\rfloor + 2$ vertices. 
+The other polygon has exactly $\lfloor n/3\rfloor + 2$ vertices.
+Hence the algorithm is correct. \\
+
+The second case is when we cannot find the exact label, so we have to find the closest node $v^*$, whose 
+label is the maximum one that is less than $\lfloor2n/3\rfloor$. In this case, there is 2 branches starting
+from the parent of $v^*$. Hence, the label of the parent of $v^*$ is the sum of the labels of its 2 children, 
+and it is greater than $\lfloor2n/3\rfloor$. Therefore, if $v^*$ is the maximum value between the 2 children, 
+then the label of $v^*$ is greater than $\lfloor n/3 \rfloor$. That is,
+
+$$n/3 \leq label(v^*) < 2n/3$$
+
+So if we cut by the edge between $v^*$ and its parent, the neither of the 2 polygons has more than $\lfloor2n/3\rfloor + 2$ vertices.
+Then the algorithm is correct. \\
+
+% Attach image
+
+\subsection*{Running Time}
+\begin{itemize}
+    \item Performing triangulation on $P$ takes $O(n\log{n})$
+    \item Constructing the dual graph $G$ of $P$ takes $O(n)$
+    \item Finding a root node $R$ of $G$ whose degree is 1 takes $O(n)$
+    \item Performing $LabelNumberOfChildNodes(G,R)$ takes $O(n)$ because we traverse each node only once.
+    \item Selecting the appropriate node $v_i$ take $O(n)$.
+    \item Finding the diagonal line corresponding to the edge between $v_i$ and its parent takes constant time.
+\end{itemize}
+
+Thus, the algorithm performs in $O(n\log{n})$
