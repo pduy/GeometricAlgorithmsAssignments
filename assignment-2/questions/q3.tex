@@ -68,7 +68,7 @@ O(n+m) + \sum_{i=1}^{m+n}{ ( Pr[\,p_i \in \text{ProperPosition}\,]*O(1)
 $$
 
 We know that $Pr[\,p_i \in \text{ProperPosition}\,] \le$ 1 and $Pr[\,p_i \not\in \text{ProperPosition}\,]$
-is never greater than the probability that we select 2 points from $i$ points. Thus,
+is never greater than the probability of selecting 2 points from $i$ points. Thus,
 we have :
 
 $$
@@ -77,8 +77,7 @@ $$
 
 Hence,
 \begin{align*}
-T(n+m) &= O(n+m) + O(n+m) + \sum_{i=1}^{n+m}O(2) \\
-&= O(n+m) + O(n+m) + (n+m)O(2) \\
+T(n+m) &= O(n+m) + \sum_{i=1}^{n+m}( O(1) + O(2/i)O(i) \\
 &= O(n+m)
 \end{align*}
 
@@ -102,7 +101,7 @@ $$
 Hence,
 
 \begin{align*}
-T(n+m) &= O(m) + 2O(n) + \sum_{i=1}^{n}O(2m/i+1) \\
+T(n+m) &= O(n) + O(m) + \sum_{i=1}^{n}(O(1) + O(2/i)O(m+i)) \\
 &= O(m) + 3O(n) + O(m)\sum_{i=1}^{n}1/i \\
 &= O(m) + 3O(n) + O(m)O(\log{n}) \\
 &= O(m\log{n})
