@@ -3,6 +3,40 @@
 \section*{3}
 \subsection*{a}
 
+This classification problem will be solved by a randomized incremental algorithm, by first shuffling the points randomly and initially choosing two points of different classes (P1 and P2). The line that pass through both  of them will be our initial separating line $l$. \\
+\\
+Note: that the separating line divides a plane into 2 halves. For a point to be in a proper position. that means it lies in the half plane which contains only points of the same class. \\
+\\
+Then, we will process the next points one by one. and for each point, we will continue looping if it's already in the proper position , if it's not. Our separating line will be changed to pass through this new point and the point of the different class in the previous line. then we will loop on every point that we have so far ( we will store every point that we already processed in an Array data structure Z) and check if every point in the proper position. 
+\\
+\\
+\textbf{Algorithm:}\\
+\\
+$FindSeparatingLine$($S$):
+\begin{enumerate}
+\item Given: Set S of m points of class P1 and n point of class P2 
+\item Output: Separating line ( it contains 2 points of different classes) if any or "not found"
+
+\item S $\leftarrow$ RandomPermutation(S) 
+\item Initialize $l$ our initial separating line to be the line between 2 different random points of P1 and P2
+\item For every other point  $p  \in S$:
+\begin{enumerate}
+\item If $p$ in the proper position
+\begin{enumerate}
+\item continue 
+\end{enumerate}
+\item Else  
+   \begin{enumerate}
+\item $l$  $\leftarrow$ create new line between $p$ and the point of different class in $l$ 
+\item loop on every point that we have so far and if there is a point that not in the right position return "not found"
+
+\end{enumerate}    
+        
+\end{enumerate}
+
+\item return $l$
+\end{enumerate}
+
 \subsubsection*{Correctness}
 Indeed, the algorithm is correct. We will prove it by induction. \\ 
 
