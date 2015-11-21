@@ -39,7 +39,7 @@ In this case, one polygon that the algorithm returns has exactly $\lfloor2n/3\rf
 The other polygon has exactly $\lfloor n/3\rfloor + 2$ vertices.
 Hence the algorithm is correct. \\
 
-The second case is when we cannot find the exact label, so we have to find the closest node $v^*$, whose 
+The second case, shown in Figure \ref{fig:extremecase}, is when we cannot find the exact label, so we have to find the closest node $v^*$, whose 
 label is the maximum one that is less than $\lfloor2n/3\rfloor$. In this case, there is 2 branches starting
 from the parent of $v^*$. Hence, the label of the parent of $v^*$ is the sum of the labels of its 2 children, 
 and it is greater than $\lfloor2n/3\rfloor$. Therefore, if $v^*$ is the maximum value between the 2 children, 
@@ -49,6 +49,15 @@ $$n/3 \leq label(v^*) < 2n/3$$
 
 So if we cut by the edge between $v^*$ and its parent, the neither of the 2 polygons has more than $\lfloor2n/3\rfloor + 2$ vertices.
 Then the algorithm is correct. \\
+
+\begin{center}
+    \label{figure1}
+    \begin{figure}[h]
+    \centering
+    \includegraphics[width=5cm]{extreme-case}\\
+    \caption{A polygon whose the tree of its dual graph has 2 branches} \label{fig:extremecase}
+    \end{figure}
+\end{center}
 
 % Attach image
 
