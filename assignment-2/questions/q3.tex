@@ -53,3 +53,41 @@ the algorithm does not do anything. If $P*$ is not in the correct order, which m
 For the opposite class, the algorithm performs a check to see whether the new classifier $l$ is doing well for them or not. If all of the points are correctly positioned, then $l$ is obviously the correct classifier. If there are some points which are not in the right position, then there are no line classifiers available for this setting. This is because if we want to include those points, we have to move the line $l$ to the ``outer'' direction of this group, which means the ``inner'' direction of the class of $P*$. Such a movement will remove $P*$ from the line $l$, and $P*$ will be outside of the its proper group. Therefore, there are no agreements in this case. The algorithm indeed returns false, which is correct. \\
 
 So, if the previous step is correct, then the current step is also correct. This implies that our incremental approach is correct. \\
+
+
+\subsection*{(b)}
+The worst case is when the algorithm has to determine $l$ every time processing
+new point. It is obvious to see that the running time will become $O(n^2)$. \\
+
+For the case that we perform shuffling on $P_2$ only, the algorithm takes $O(m)$
+to find the first split line between all point in $P_1$ and one point of $P_2$.
+Then, the algorithm will iterate the other points of $P_2$ to find a better split
+line if the current split line can not separate $P_1$ and $P_2$ properly, which
+takes $O(m+i)$ where $i$ is the number of points of $P_2$ while processing $p_i
+\in P_2$. The expected running time is :
+
+$$
+O(m) + \sum_{i=1}^{n}{ ( Pr[\,p_i \in \text{CorrectRegion}\,]*O(1) 
+    + Pr[\,p_i \not\in \text{CorrectRegion}\,]*O(m+i)
+) }
+$$
+
+We know that $Pr[\,p_i \in \text{CorrectRegion}\,] \le$ 1 and $Pr[\,p_i \not\in \text{CorrectRegion}\,]$
+is never greater than the probability that we select 2 points from $i$ points. Thus,
+we have :
+
+$$
+Pr[\,p_i \not\in \text{CorrectRegion}\,] \le 2/i
+$$
+
+Hence,
+
+\begin{align*}
+T(n+m) &= O(m) + O(n) + \sum_{i=1}^{n}O(2m/i+1) \\
+&= O(m) + 2O(n) + O(m)\sum_{i=1}^{n}1/i \\
+&= O(m) + 2O(n) + O(m)O(\log{n}) \\
+&= O(m\log{n})
+\end{align*}
+
+We can conclude that if we shuffle only some subset of data, in this case only $P_2$, the
+would perform worse.
