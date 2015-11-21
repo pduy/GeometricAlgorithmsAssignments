@@ -1,4 +1,21 @@
 % !TEX root = ../main.tex
 
 \section*{3}
+\subsection*{a}
 
+\subsubsection*{Correctness}
+Indeed, the algorithm is correct. We will prove it by induction. \\ 
+
+Based on our selection, the classifier $l$ always contains 1 point from $P1$ and 1 point from $P2$. \\
+
+If the dataset contains only one point in $P1$ and one point in $P2$, then the algorithm pick the line $l$ passing these points to be the classifier, and this is the correct one. \\
+
+Assume that after processing point $i$, the algorithm has already had the correct solution. Let $P*$ be the next point, and $P_i$ is the point of the same class ($P1$ or $P2$) which is 
+currently on $l$.  When we insert $P*$, the new classifier should group it to the correct group. \\
+
+If $P*$ is in the correct order already (the point of $P1$ should be above or on $l$, and the point of $P2$ should be below or on $l$), then the classifier $l$ is correct and
+the algorithm does not do anything. If $P*$ is not in the correct order, which means it is on the ``outer'' space of the group of $P_i$, the line $l$ should be modified to group $P*$ to the proper position. Our algorithm decides to rotate the line $l$ so that it contains $P*$. This is a proper position for $P*$ because every point can be on $l$, and $P_i$ is also in that group because $l$ was rotated to the ``outer'' direction. Since the old $l$ containing $P_i$ was the correct classifier, this guarantees that the new line $l$ correctly classify the class of $P*$. \\ 
+
+For the opposite class, the algorithm performs a check to see whether the new classifier $l$ is doing well for them or not. If all of the points are correctly positioned, then $l$ is obviously the correct classifier. If there are some points which are not in the right position, then there are no line classifiers available for this setting. This is because if we want to include those points, we have to move the line $l$ to the ``outer'' direction of this group, which means the ``inner'' direction of the class of $P*$. Such a movement will remove $P*$ from the line $l$, and $P*$ will be outside of the its proper group. Therefore, there are no agreements in this case. The algorithm indeed returns false, which is correct. \\
+
+So, if the previous step is correct, then the current step is also correct. This implies that our incremental approach is correct. \\
