@@ -1,0 +1,56 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\graphicspath{ {assets/} }
+
+\begin{document}
+
+\title{Assignment 1 - Convex Hull and Plane Sweep Algorithm}
+\author{
+	Pattarawat Chormai - 0978675 \\
+}
+\maketitle
+
+\section*{Q2}
+
+\begin{algorithm}[h]
+  \caption{VisibleLineSegment}
+  \label{alg:visiblesg}
+  \begin{algorithmic}
+      \Require set of line segments $S$ and point $p$
+      \State Initialize $Q$ an event queue, $T$ a status data structure and $V$ a set of visible line segment.
+      \State Find $p_{ref}$, a reference point from $s_j \in S$ where $s_j$ is the segment that closest to $p$.
+      \State For starting point and ending point of all $s_i \in S$, compute the angle between the line construct from the point and $p$ and the reference line $pp_{ref}$ and put them to $Q$ using the computed angle as a priority ( each event also has to store its $s_i$ )
+      \While{ $Q \ne \emptyset$}
+      	\State $e \leftarrow $ extract next event from $Q$.
+	\If{ $e$ is a starting point of $s_i$}
+		\State Push $s_i$ in $T$
+	\ElsIf{ $e$ is a ending point of $s_j$}
+		\State Remove $s_i$ from $T$
+	\EndIf
+	\State Calculate distance between $p$ and all $s_j \in T$ at the angle of $e$ and push the nearest line into $V$ if it is not in $V$ yet.
+      \EndWhile
+      
+      \State return $V$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{proof}
+We first argue that the algorithm reports correct result. When getting a new event $e$, the algorithm recalculates distance between $p$ and all $s_j \in S$ at the angle of $e$ and push the nearest line segment to $V$.   Because a line segment can be seen from $p$ when at some angle, it has the closest distance to $p$. This proves that all line segments that can be seen from $p$ will be included in $V$. \\
+
+To proof time complexity, we first discuss about data structure that we use in the algorithm. For storing events, we use a binary search tree as a priority queue $Q$. Similarly, $T$ is also implemented using a binary search tree where a leaf node represents a line segment and a internal node is a condition of position corresponding to its line segments interacting with the sweep line. These internal nodes need to be recomputed every time to maintain the correctness of the positions. Constructing $Q$ takes $O(n\log{n})$. For each event, the algorithm need to either push or remove $s_i$, which take $O(\log{k})$ and recalculate distance of all line segments in $T$ which takes $O(k+\log{k})$ where $k$ is the maximum number of line segments in $T$ at a time. Thus, the time complexity for each event is $O(\log{k})$. \\
+
+In total, the algorithm takes $O(n\log{n} + nk)$, if $k$ is small then the algorithm can run in $O(n\log{n})$ but there are some cases, for example all line segments stack on each other in the same direction from $p$, then $k$ is $n$. In this case, the algorithm will run in $O(n^2)$.
+\end{proof}
+%Correctness
+
+
+%Mention data structure used for Q and T
+%Time complexity
+
+
+\end{document}
