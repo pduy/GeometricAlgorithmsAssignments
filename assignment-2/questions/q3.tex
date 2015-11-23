@@ -57,7 +57,7 @@ If $p^*$ is not in the correct order, which means it is on the ``outer'' space o
 
 After correcting the position of $p^*$, there can be a case that some points of the opposite class are wrong positioned, as being shown in figure \ref{fig:modification}. The algorithm has to perform a loop on the opposite class to correct those points. After this correction, all points of the opposite class are in the right place. The line $l$ can be changed to $p^* p_i''$ where $p_i''$ is the point that better classifies the opposite class. \\
 
-If after that, there are still points outside of their correct positions, then there are no line classifiers available for this setting. Therefore, there are no agreements in this case. The algorithm indeed returns false, which is correct. \\
+If after that, there are still points outside of their correct positions, which means there are (again) some points in the class of $p^*$ that are in wrong places, then we know that there are no agreements in this case. Thus, there are no line classifiers available for this setting. The algorithm indeed returns false. \\
 
 If all of the points are correctly positioned, then $l$ is obviously the correct classifier. 
 So, if the previous step is correct, then the current step is also correct. This implies that our incremental approach is correct. \\
@@ -66,7 +66,7 @@ So, if the previous step is correct, then the current step is also correct. This
 \centering
 \includegraphics[width=0.5\textwidth]{modification}\\
 \caption{Example of 2-round modification. Circles: $P_1$, Squares: $P_2$. 
-Intitially, $p_3$ is in the correct order, but after checking $p_4$, we rotate the line to $p_4 p_2$ so that $P_1$ is above the line. So $p_3$ is not correct. Then we have to loop on $P_2$ to put $p_3$ back to the proper position. The final result is $p_4 p_3$} 
+Intitially, $p_3$ is in the correct order, but after checking $p_4$, we rotate the line to $p_4 p_2$ so that $P_1$ is above the line. So $p_3$ is not correct. Then we have to loop on $P_2$ to put $p_3$ back to the proper position. The final result is $p_4 p_3$.}
 \label{fig:modification}
 \end{figure}
 
@@ -95,14 +95,14 @@ T(n+m) &= O(n+m) + \sum_{i=1}^{n+m}( O(1) + O(2/i)O(i) ) \\
 \end{align*}
 
 \subsection*{(b)}
-The worst case is when the algorithm has to determine $l$ every time processing
-new point. It is obvious to see that the running time will become $O(n^2)$. \\
+The worst case is when the algorithm has to determine $l$ every time processing a
+new point. Then, the running time will become $O(n^2)$. \\
 
-For the case that we perform shuffling on $P_2$ only which takes $O(n)$. Next,
-the algorithm takes $O(m)$ to find the first separating line between all points in $P_1$
+Let's consider the case that we perform shuffling on $P_2$ which only takes $O(n)$.
+The algorithm takes $O(m)$ to find the first separating line between all points in $P_1$
 and one point of $P_2$. Then, for iterating the other points of $P_2$, the running
 time when the algorithm has to find a better separating line changes sligthly to
-$O(m+i)$. Hence, the expected running time is :
+$O(m+i)$, where $i$ is the number of processed points in $P_2$ so far. Hence, the expected running time is :
 
 \begin{align*}
 T(n+m) \quad =\quad & O(n) + O(m) \\
@@ -115,6 +115,7 @@ Hence,
 \begin{align*}
 T(n+m) &= O(n) + O(m) + \sum_{i=1}^{n}(O(1) + O(2/i)O(m+i)) \\
 &= O(m) + 3O(n) + O(m)\sum_{i=1}^{n}1/i \\
+&= O(m) + 3O(n) + O(m)O(\ln{n}) \\
 &= O(m) + 3O(n) + O(m)O(\log{n}) \\
 &= O(m\log{n})
 \end{align*}
