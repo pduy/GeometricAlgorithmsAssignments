@@ -104,11 +104,11 @@ and one point of $P_2$. Then, for iterating the other points of $P_2$, the runni
 time when the algorithm has to find a better separating line changes sligthly to
 $O(m+i)$. Hence, the expected running time is :
 
-$$
-O(n) + O(m) + \sum_{i=1}^{n}{ ( Pr[\,p_i \in \text{ProperPosition}\,]*O(1)
-    + Pr[\,p_i \not\in \text{ProperPosition}\,]*O(m+i)
-) }
-$$
+\begin{align*}
+T(n+m) \quad =\quad & O(n) + O(m) \\
+        &+ \sum_{i=1}^{n}{ Pr[\,p_i \in \text{ProperPosition}\,]*O(1) } \\
+        &+ \sum_{i=1}^{n}{ Pr[\,p_i \not\in \text{ProperPosition}\,]*O(m+i) }
+\end{align*}
 
 Hence,
 
