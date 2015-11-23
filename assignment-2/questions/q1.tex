@@ -8,8 +8,7 @@ We give the algorithm as follows. \\
     \item Perform triangulation on $P$.
     \item Construct the dual graph $G$ of $P$.
     \item Find a root node $R$ of $G$ whose degree is 1.
-    \item Perform $LabelNumberOfChildNodes(G,R)$, which is described in 
-      \ref{alg:LabelNumberOfChildNodes}.
+    \item Perform $LabelNumberOfChildNodes(G,R)$, which is described in  Algorithm \ref{alg:LabelNumberOfChildNodes}.
     \item Select the node $v_i$ whose label is $n$ where $n = max(label_i,0<i<n \text{ and } label_i \leq \lfloor 2n/3\rfloor )$
     \item Find the diagonal line corresponding to the edge between $v_i$ and its parent.
 \end{itemize}
