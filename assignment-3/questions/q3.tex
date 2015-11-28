@@ -9,3 +9,6 @@ If there is another point $p'$ in $A$, then $|pp'| \leq d < sr < |pq|$. Thus $q$
 If $p$ and $q$ are the closest pair in $P$, then $q$ is the nearest neighbor of $p$ and vice versa. Thus if $p \in A$ and $q \in B$ where ${A,B}$ is a pair in the $s$-WSPD, $A$ and $B$ contain only 1 element as being proven above. From the lecture, we know that the number of pairs in the $s$-WSPD is $O(s^d \dot n)$. $s$ and $d$ do not depend on $n$, so we can consider this as $O(n)$. Therefore, in $O(n)$ time, we can extract all pairs ${A_i, B_i}$ in which both groups contain only 1 element. Then we can compare the distances between the items in each pair, and pick the one with the smallest distance, which also takes $O(n)$ because the number of such pairs is at most the number of the $s$-WSPD. In general, we can do that in $O(n)$ time.\\
 
 
+\subsection*{b}
+According to (a) if $s > 2$, for each point $p$ there will be a pair ${A,B} \in WSPD$ in which $A$ contains only $p$.
+Thus, we have $n$ such circles $A$. Therefore, the number of pairs between the circles is at least $n/2$. \\
