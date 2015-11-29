@@ -1,12 +1,14 @@
 % !TEX root = ../main.tex
 
 \section*{1}
+We give the algorithm as follows. \\
+
 \begin{itemize}
     \item Given a simple polygon $P$ a with $n$ vertices.
     \item Perform triangulation on $P$.
     \item Construct the dual graph $G$ of $P$.
     \item Find a root node $R$ of $G$ whose degree is 1.
-    \item Perform $LabelNumberOfChildNodes(G,R)$.
+    \item Perform $LabelNumberOfChildNodes(G,R)$, which is described in  Algorithm \ref{alg:LabelNumberOfChildNodes}.
     \item Select the node $v_i$ whose label is $n$ where $n = max(label_i,0<i<n \text{ and } label_i \leq \lfloor 2n/3\rfloor )$
     \item Find the diagonal line corresponding to the edge between $v_i$ and its parent.
 \end{itemize}
@@ -47,7 +49,7 @@ then the label of $v^*$ is greater than $\lfloor n/3 \rfloor$. That is,
 
 $$n/3 \leq label(v^*) < 2n/3$$
 
-So if we cut by the edge between $v^*$ and its parent, the neither of the 2 polygons has more than $\lfloor2n/3\rfloor + 2$ vertices.
+So if we cut by the edge between $v^*$ and its parent, neither of the 2 polygons has more than $\lfloor2n/3\rfloor + 2$ vertices.
 Then the algorithm is correct. \\
 
 \begin{center}
@@ -63,12 +65,12 @@ Then the algorithm is correct. \\
 
 \subsection*{Running Time}
 \begin{itemize}
-    \item Performing triangulation on $P$ takes $O(n\log{n})$
+    \item Performing triangulation on $P$ takes $O(n\log{n})$ (by splitting into y-monotone polygons and triangulate each one)
     \item Constructing the dual graph $G$ of $P$ takes $O(n)$
     \item Finding a root node $R$ of $G$ whose degree is 1 takes $O(n)$
-    \item Performing $LabelNumberOfChildNodes(G,R)$ takes $O(n)$ because we traverse each node only once.
-    \item Selecting the appropriate node $v_i$ take $O(n)$.
-    \item Finding the diagonal line corresponding to the edge between $v_i$ and its parent takes constant time.
+    \item Performing $LabelNumberOfChildNodes(G,R)$ takes $O(n)$ because we traverse each node only once
+    \item Selecting the appropriate node $v_i$ take $O(n)$
+    \item Finding the diagonal line corresponding to the edge between $v_i$ and its parent takes constant time
 \end{itemize}
 
 Thus, the algorithm performs in $O(n\log{n})$
