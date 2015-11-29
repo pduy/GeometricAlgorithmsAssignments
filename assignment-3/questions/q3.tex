@@ -1,5 +1,5 @@
 % !TEX root = ../main.tex
-\section*{3}
+\section*{2}
 \subsection*{a}
 
 Because $p \in A$ and $q \in B$ where ${A,B}$ is a pair in the $s$-WSPD, the distance $|pq|$ should be large. In particular, $|pq| \geq sr$ where $r$ is the radius of $A$ and $B$. As we know, $s > 2$, so $sr > d$ where $d = 2s$ is the diameter of the circles. \\
@@ -8,4 +8,8 @@ If there is another point $p'$ in $A$, then $|pp'| \leq d < sr < |pq|$. Thus $q$
 
 If $p$ and $q$ are the closest pair in $P$, then $q$ is the nearest neighbor of $p$ and vice versa. Thus if $p \in A$ and $q \in B$ where ${A,B}$ is a pair in the $s$-WSPD, $A$ and $B$ contain only 1 element as being proven above. From the lecture, we know that the number of pairs in the $s$-WSPD is $O(s^d \dot n)$. $s$ and $d$ do not depend on $n$, so we can consider this as $O(n)$. Therefore, in $O(n)$ time, we can extract all pairs ${A_i, B_i}$ in which both groups contain only 1 element. Then we can compare the distances between the items in each pair, and pick the one with the smallest distance, which also takes $O(n)$ because the number of such pairs is at most the number of the $s$-WSPD. In general, we can do that in $O(n)$ time.\\
 
+\subsection*{b}
+In the construction of a $t$-spanner, we use $s = 4(t + 1) / (t - 1)$, when $t > 1$, $s > 4$. In the spanner, every vertex should be accessible, which means the number of edges should be at least $n - 1$, otherwise there is at least an unreachable vertex. The construction algorithm builds an edge in the spanner if there is a pair in the $s$-WSPD. Therefore, the number of pairs should be at least $n - 1$, when $s > 4$. \\
+
+\subsection*{c}
 
