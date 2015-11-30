@@ -17,49 +17,53 @@
 
 \section*{Q3}
 
-Let denote $h_1$ and $h_2$ are the lines used for construct cone $C$ and $D_1$ and $D_2$
-are vectors that pass the origin point and pendicular to $h_i$. The direction
-of $D$ is defined by the face of $C$. \\
+\subsection*{a}
 
-We observe that the values of points $q \in C_p$ on $D_1$ and $D_2$ are greater than
-the values of $p$, otherwise $q \notin C_p$.
+Let denote $h_1$ and $h_2$ lines define area of cone $C$ and $D_1$ and $D_2$
+are vectors that pass the origin point and pendicular to $h_i$. The direction
+of $D$ is defined by the face of $C$.
+
+Denote $v(D_i,p)$ the value of point $p$ projected on $D_i$. We observe that for
+all points $q \in C_p$, its $v(D_1,q)$ and $v(D_2,q)$ are greater than
+the values of $p$, otherwise $q \notin C_p$, as shown in Figure $\ref{fig:theta-graph}$.
+
+Thus, we shall use this property to develop a sweep line algorithm which works
+as follows:
+
+First, it intializes an event queue E by sorting $P$ in descending order of $v(D_1,p)$.
+When processing $p_i$, the point will be added into a balanced binary search tree $S$, a status structure,
+that has properties below :
+\begin{itemize}
+    \item An internal node $u$ store information related to searching.
+    \item Points are stored in leaf level and sorted by $v(D_2,p)$ in ascending order.
+    \item Node $u$ also stores $z_u$ which is the point $q$ from its right subtree whose $v(D_2,q)$ is lowest. \\
+        \;\; Note that $z_u$ is updated during insertion process.
+\end{itemize}
+
+Next, the algorithm will traverse from the root of $S$ to the leaf of $p_i$. During traversal,
+if the path go to left subtree of node $u$, then the algorithm will add $z_u$ in to an array $M$.
+Then, the algorithm will find the lowest point for $C_{p_i}$ from $M$.
 
 \begin{center}
     \label{figure1}
     \begin{figure}[h]
     \centering
     \includegraphics[width=10cm]{theta-graph}\\
-    \caption{An example of how the algorithm works.}
+    \caption{An example of how the algorithm works.} \label{fig:theta-graph}
     \end{figure}
 \end{center}
 
-Thus, we shall use this property to develop a sweep line algorithm which works
-as follows: \\
-
-First, it intializes an event queue E by sorting $P$ using the projected value of a point $p$ 
-on $D_1$, denoted by $v(D_1,p)$, in descending order. When processing $p_i$, the point will be added into a 
-binary search tree $S$, a status structure, that has properties below :
-\begin{itemize}
-    \item points are stored in leaf level.
-    \item an internal node $u$ store information related to searching.
-    \item node $u$ also stores $z_u$ which is the point $q$ from its right subtree whose $v(D_2,q)$ is lowest.
-\end{itemize}
-
-Next, the algorithm will traverse from the root of $S$ to the leaf of $p_i$. During traversal,
-if the path go to left subtree of node $u$, then the algorithm will add $z_u$ in to an array $M$.
-Then, the algorithm will find the lowest point for $C_{p_i}$ from $M$.
-%
 \begin{algorithm}[h]
   \caption{OneConeGraph}
   \begin{algorithmic}
     \Require set of points $P$
-    \State $E$ $\leftarrow$ Sort $p \in P$ using $v(D_1,p)$.
+    \State $E$ $\leftarrow$ Sort $p \in P$ using $v(D_1,p)$ in descending order.
     \State Intialize a status structure $S$.
     \State Intialize a set $G$
     \While{$E \neq \emptyset$}
         \State $p \leftarrow$ NextEvent(E)
         \State add $p$ into $S$
-        \State $q \leftarrow$ FindClosestPoinInD2(S, p)
+        \State $q \leftarrow$ FindClosestPoint(S, p)
         \State $G \leftarrow G \cup { (p,q) }$
     \EndWhile
     \State return $G$
@@ -67,7 +71,7 @@ Then, the algorithm will find the lowest point for $C_{p_i}$ from $M$.
 \end{algorithm}
 
 \begin{algorithm}[h]
-  \caption{FindClosestPoinInD2}
+  \caption{FindClosestPoint}
   \begin{algorithmic}
     \State Intialize an empty array $M$
     \State $v \leftarrow$ root of $S$
@@ -79,76 +83,39 @@ Then, the algorithm will find the lowest point for $C_{p_i}$ from $M$.
             \State $v \leftarrow$ right child of $v$
         \EndIf
     \EndWhile
-    \State return point $q$ whose y value is lowest in $M$.
-    \State return $k$ where $k_y = \min_{q \in M} (q_y)$
+    \State return $q$ where $q_y = \min_{q \in M} (q_y)$
   \end{algorithmic}
 \end{algorithm}
 
-%A polygon $P=(V,E)$, which has $n$ vertices and edges, can be covered by a guard if and only if there is a feasible region $R$ in
-%which when we place a guard, he can see every edges of the polygon. Such a region
-%can simply computed by using half plane intersected technic which we use for solving linear programming. \\
-%
-%We first compute a half plane $h(e_i)$ of each edge $e_i$ of $P$ where a half plane corresponds to
-%region of the polygon. Also, the leftmost, topmost, rightmost and bottommost vertices of $P$ are used to define the
-%boundary box. In each step of adding $h(e_i)$, the algorithm determines whether
-%the current intersected region $R_{i-1}$ corresponding to $h(e_{i})$ by checking whether a helper point $v_{i-1}$
-%is in $h(e_i)$ or not. If not, a line $L$ moving along $x$-axis is used as a objective function of $1dBoundedLP$,
-%the algorithm from 4th lecture, for checking the possibility of having a new intersected region
-%and update $v_i$ if it is able to do so. On the other hand, if $v_{i-i}$ is in $h(e_i)$, the algorithm will do nothing because
-%the current intersected region is still valid. Hence, it set $v_i$ equal to $v_{i-1}$.
-%
-%If the algorithm succeeds to find $v_i$ until the end, then only one guard is needed
-%to cover $P$, otherwise, we need more than one guard to cover $P$.
-%
-%
-%The algorithm works as follow :
-%
-%
-%\subsection*{Correctness}
-%We first argue that for any $e_i$, a guard can see it if he is in the region of $h(e_i)$.
-%This implies that if $P$ has a intersected region between all $h(e_i)$, then one guard is
-%sufficient to cover $P$. \\
-%
-%The algorithm uses $v_i$ as a helper point to represent the current intersected region, whenever
-%the intersected region changes, $v_i$  is updated. \\
-%
-%First considering $e_1$, it can be covered by a guard, if the guard is in any area of $h(e_1)$, of course this
-%area should be inside $P$. Assume when processing $e_i$, the intersected region between
-%$h(E_{i-1})$ where $E_{i-1}$ is $\{ e_j : e_j \in E \text{ and }1 \le j \le i -1 \} $ has computed already.
-%Thus if we put a guard in any position in the region $R_{i-1}$, he can cover all edges in $E_{i-1}$. If
-%the intersection of $h(e_i)$ and $h(E_{i-1})$ does not change, $v_{i-1}$ in $h(e_i)$,
-%one guard is still sufficient to cover $E_i$. On the other hand, if $h(e_i)$ and $h(E_{i-1})$ create
-%a new intersected region, $v_{i-1} \notin h(e_i)$, the algorithm will try to find a new position
-%for $v_i$ which represents the new intersected region. If it succeeds, only one guard
-%is needed to cover $E_i$, otherwise it will return false which means we need more
-%than one guard to cover the region. The reasoning is also true when processing  $e_n$. \\
-%
-%Therefore, by using induction, the algorithm reports correct result.
-%
-%\subsection*{Running Time}
-%\begin{itemize}
-%    \item Finding the boundary box takes $O(n)$.
-%    \item Finding $v_0$  takes constant time.
-%    \item Deriving half planes for all edge takes $O(n)$.
-%    \item Shuffling half planes order takes $O(n)$.
-%    \item Processing $h(e_i)$ takes \\
-%    $\;\;$ $O(1)$ if the intersected region does not change when processing $h(e_i)$\\
-%    $\;\;$ $O(i)$ otherwise, because we have to find the new position of the helper point $v_i$
-%\end{itemize}
-%Since we know that, the probability of $v_{i-1}$ and $v_i$, $Pr[v_{i-1} \in R_i]$, are the same is never greater than 1
-%, while the probability that we have to find new position of $v_i$, $Pr[v_{i-1} \notin R_i]$, is equal to the probability
-%of removing $h(e_i)$ and $v_i$ is changed, the probability of such a case is never
-%greater than the probability of selecting 2 half planes defining their intersected.
-%
-%Thus, the expected running time is :
-%
-%\begin{align*}
-%    T(n) &= 3O(n) + \sum_{i=1}^{n}( Pr[v_{i-1} \in R_i]*O(1) + Pr[v_{i-1} \notin R_i]*O(i) ) \\
-%         &= 3O(n) + O(n) + \sum_{i=1}^{n}(2/i)O(i) \\
-%         &= 4O(n) + 2O(n) \\
-%         &= O(n)
-%\end{align*}
-%
-%Therefore, the algorithm runs in linear expected running time.
-%
+\subsection*{Correctness}
+Based on the observation that a point $q \in C_p$ if and only if $v(D_1,q)$ and $v(D_2,q)$
+are greater than $v(D_1,p)$ and $v(D_2,p)$ respectively. Assume $p$ is the point that 
+is currently processed. Only points $q \in P$, whose $v(D_1,q)$ is greater than $v(D_1,p)$,
+have been processed. Thus, no point $k \in S$ has $v(D1,k)$ lower than $v(D_1,p)$.
+
+In $FindClosestPoint$, the algorithm traverses from the root of $S$ down to the leaf
+of $p$. When passing an internal node $u$ and $p$ is in the left subtree of $u$,
+the algorithm always adds $z_u$, the point in the right subtree of $u$  whose y-value is lowest, into $M$.
+
+only points $q$ whose $v(D_2,q)$ is greater than $v(D_2,p)$. Hence, all points in $M$ is in $C_p$,
+Thus, the point in $M$ whose lowest y-value is the lowest point in $C_p$ \\
+
+\newpage
+Therefore, $OneConeGraph$ will have the correct lowest point for all $p \in P$.
+
+\subsection*{Running Time}
+\begin{itemize}
+    \item Construct $E$ takes $O(n\log{n})$.
+    \item For processing each point, it takes
+    $\;\;$ $O(1)$ for extracting the event.\\
+    $\;\;$ $O(\log{n})$ for adding $p$ into $S$ and update $z_u$ if necessary. \\
+    $\;\;$ $O(\log{n})$ for $FindClosestPoint$ because the size of $M$ is bounded by the depth of $S$. \\
+\end{itemize}
+
+Thus, the algorithm runs in $O(n\log{n})$ time.
+
+\subsection*{b}
+To construct $\theta$-graph of $P$, we will run $OneConeGraph$ for each cone. Thus,
+we can compute $\theta$-graph of $P$ in $O(kn\log{n})$.
+
 \end{document}
