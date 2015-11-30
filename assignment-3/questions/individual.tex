@@ -23,7 +23,7 @@ Let denote $h_1$ and $h_2$ lines define area of cone $C$ and $D_1$ and $D_2$
 are vectors that pass the origin point and pendicular to $h_i$. The direction
 of $D$ is defined by the face of $C$.
 
-Denote $v(D_i,p)$ the value of point $p$ projected on $D_i$. We observe that for
+Denote $v(D_i,p)$ as the value of point $p$ projected on $D_i$. We observe that for
 all points $q \in C_p$, its $v(D_1,q)$ and $v(D_2,q)$ are greater than
 the values of $p$, otherwise $q \notin C_p$, as shown in Figure $\ref{fig:theta-graph}$.
 
@@ -34,10 +34,13 @@ First, it intializes an event queue E by sorting $P$ in descending order of $v(D
 When processing $p_i$, the point will be added into a balanced binary search tree $S$, a status structure,
 that has properties below :
 \begin{itemize}
+    \item Points in $P$ are stored in leaf level and sorted by $v(D_2,p)$ in ascending order.
     \item An internal node $u$ store information related to searching.
-    \item Points are stored in leaf level and sorted by $v(D_2,p)$ in ascending order.
-    \item Node $u$ also stores $z_u$ which is the point $q$ from its right subtree whose $v(D_2,q)$ is lowest. \\
-        \;\; Note that $z_u$ is updated during insertion process.
+    \item Node $u$ also stores $z_u$ which is the point $q$ from its subtree whose $v(D_2,q)$ is lowest. \\
+        \;\; \; \; Note that $z_u$ is updated during insertion.
+        While traversing down $S$ to insert $p$, we will update $z_u$ if the y-value of $p$ is lower that the current one.
+        If that is not the case and $z_u$ is the point that has to be move to other subtree after inserting
+        $p$, then we select $z_u$ from its subtrees.
 \end{itemize}
 
 Next, the algorithm will traverse from the root of $S$ to the leaf of $p_i$. During traversal,
@@ -95,7 +98,7 @@ have been processed. Thus, no point $k \in S$ has $v(D1,k)$ lower than $v(D_1,p)
 
 In $FindClosestPoint$, the algorithm traverses from the root of $S$ down to the leaf
 of $p$. When passing an internal node $u$ and $p$ is in the left subtree of $u$,
-the algorithm always adds $z_u$, the point in the right subtree of $u$  whose y-value is lowest, into $M$.
+the algorithm always adds $z_u$, the point in the subtree of $u$  whose y-value is lowest, into $M$.
 
 only points $q$ whose $v(D_2,q)$ is greater than $v(D_2,p)$. Hence, all points in $M$ is in $C_p$,
 Thus, the point in $M$ whose lowest y-value is the lowest point in $C_p$ \\
@@ -108,14 +111,14 @@ Therefore, $OneConeGraph$ will have the correct lowest point for all $p \in P$.
     \item Construct $E$ takes $O(n\log{n})$.
     \item For processing each point, it takes \\
     $\;\;$ $O(1)$ for extracting the event.\\
-    $\;\;$ $O(\log{n})$ for adding $p$ into $S$ and update $z_u$ if necessary. \\
-    $\;\;$ $O(\log{n})$ for $FindClosestPoint$ because the size of $M$ is bounded by the depth of $S$. \\
+    $\;\;$ $O(\log{n})$ for adding $p$ into $S$ and updating $z_u$\\
+    $\;\;$ $O(\log{n})$ for $FindClosestPoint$ because the size of $M$ is bounded by the depth of $S$.
 \end{itemize}
 
 Thus, the algorithm runs in $O(n\log{n})$ time.
 
 \subsection*{b}
-To construct $\theta$-graph of $P$, we will run $OneConeGraph$ for each cone. Thus,
-we can compute $\theta$-graph of $P$ in $O(kn\log{n})$.
+To construct $\theta$-graph of $P$, we will run $OneConeGraph$ and using suitable function to compute lowest value in corresponding
+direction for each cone. Thus, we can compute $\theta$-graph of $P$ in $O(kn\log{n})$.
 
 \end{document}
