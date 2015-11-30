@@ -6,7 +6,7 @@ Because $p \in A$ and $q \in B$ where ${A,B}$ is a pair in the $s$-WSPD, the dis
 
 If there is another point $p'$ in $A$, then $|pp'| \leq d < sr < |pq|$. Thus $q$ is not the nearest neighbor of $p$ anymore. This contradicts our proposal, which completes the proof.\\
 
-If $p$ and $q$ are the closest pair in $P$, then $q$ is the nearest neighbor of $p$ and vice versa. Thus if $p \in A$ and $q \in B$ where ${A,B}$ is a pair in the $s$-WSPD, $A$ and $B$ contain only 1 element as being proven above. From the lecture, we know that the number of pairs in the $s$-WSPD is $O(s^d \dot n)$. $s$ and $d$ do not depend on $n$, so we can consider this as $O(n)$. Therefore, in $O(n)$ time, we can extract all pairs ${A_i, B_i}$ in which both groups contain only 1 element. Then we can compare the distances between the items in each pair, and pick the one with the smallest distance, which also takes $O(n)$ because the number of such pairs is at most the number of the $s$-WSPD. In general, we can do that in $O(n)$ time.\\
+If $p$ and $q$ are the closest pair in $P$, then $q$ is the nearest neighbor of $p$ and vice versa. Thus if $p \in A$ and $q \in B$ where ${A,B}$ is a pair in the $s$-WSPD, $A$ and $B$ contain only 1 element as being proven above. From the lecture, we know that the number of pairs in the $s$-WSPD is $O(s^d n)$. $s$ and $d$ do not depend on $n$, so we can consider this as $O(n)$. Therefore, in $O(n)$ time, we can extract all pairs ${A_i, B_i}$ in which both groups contain only 1 element. Then we can compare the distances between the items in each pair, and pick the one with the smallest distance, which also takes $O(n)$ because the number of such pairs is at most the number of the $s$-WSPD. In general, we can do that in $O(n)$ time.\\
 
 \subsection*{b}
 According to (a) if $s > 2$, for each point $p$ there will be a pair ${A,B} \in WSPD$ in which $A$ contains only $p$.
@@ -20,7 +20,7 @@ the $s$-WSPD. Therefore, the number of pairs should be at least $n - 1$, when $s
 
 \subsection*{c}
 As we observe from (a), each point in P will have its own circle.
-If $s > 0$, it means all circles having the same size are disjoint. With this property,
+If $s > 0$, it means all circles, having the same size, are disjoint. With this property,
 the number of circles of a WSPD, $\sum{|A_i|+|B_i|}$, is maximum when the algorithm
 can always find a pair of circles with exactly 2 smaller circles inside.
 Note that, if there are more than 2 smaller circles in a circle, the total number of circles reduces. \\
@@ -34,7 +34,7 @@ Note that, if there are more than 2 smaller circles in a circle, the total numbe
     \end{figure}
 \end{center}
 
-It is obviously to see that if every circle of the WSPD  contains exactly 2 smaller circles.
+It is obvious to see that if every circle of the WSPD  contains exactly 2 smaller circles.
 The relation of circles is similar to binary tree whose leaves are the points of P. Hence, \\
 
 \begin{align*}
@@ -43,4 +43,3 @@ The relation of circles is similar to binary tree whose leaves are the points of
 \end{align*}
 
 Therefore, this proves $\sum{|A_i|+|B_i|}$ is bounded by $O(n\log{n})$.
->>>>>>> Update 2.c
