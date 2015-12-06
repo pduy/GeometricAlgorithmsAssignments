@@ -1,0 +1,16 @@
+% !TEX root = ../main.tex
+
+\section*{1}
+
+Assume $A$ and $B$ are two adjacent squares in a quadtree whose size are different
+by factor of 4 and $B$ is bigger than $A$. If we split $B$ into 4 equal squares,
+one of them will become adjacent to $A$ with size differing by a factor of 2. Because of the
+number of triangles after triangulating a subdivision is $O(1)$ when using factor of $2$
+as a balanced condition. Thus, the number of triangles can increase at most $4O(1)$
+when splitting $B$. \\
+
+Therefore, the number of triangles is still $O(1)$ when using the factor of 4 as
+a balanced condition. \\
+
+The idea is to choose a Steiner point in the center of $B$, and choose other Steiner points
+in the center of the edge connecting the first Steiner point to the corners of $B$, when neccessary. \\
