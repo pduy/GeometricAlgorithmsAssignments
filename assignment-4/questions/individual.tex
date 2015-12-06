@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\graphicspath{ {assets/} }
+
+\begin{document}
+
+\title{Assignment 4 - Trapezoidal Map, Arrangements and Duality }
+\author{
+	Pattarawat Chormai - 0978675 \\
+}
+\maketitle
+
+\section*{Q1}
+
+As we know, a given simple polygon $P$ has $n$ vertices. Thus, its trapezoidal
+map $\tau$ has $3n+1$ trapezoids, or $O(n)$.
+
+Regarding Vertical Decomposition definition, there is not line crossing a
+trapezoid. Moreover, if one traverses from left to right and connect $leftp(\Delta_i)$
+and $rightp(\Delta_i)$ together for each trapezoid $\Delta_i$, the approach will be similar
+to $MakeMonotone$ algorithm that has a sweep line moving horizontally.
+
+
+Thus, we can traverse all $\Delta \in \tau \cap P$ and connect $leftp(\Delta_i)$ and
+$rightp(\Delta_i)$ together if possible. As a result, $P$ is divided into x-monotone
+subpolygons. Hence, $TriangulateMonotonePolygon$, from the 3rd lecture Art Gallery problem,
+can be used to triangulate the subpolygons.
+
+% Figure: image x-monotone.
+
+Note that, $TriangulateMonotonePolygon$ has to
+be modified slightly to work with x-monotone polygon. \\
+
+
+The algorithm works as follows:
+
+\begin{enumerate}
+    \item Traverse all $\Delta_i \in \tau \cap P$. If $leftp(\Delta_i)$
+    and $rightp(\Delta_i)$ are not the same edge of $P$, connect them together.
+    \item Apply $TriangulateMonotonePolygon$
+\end{enumerate}
+
+% \subsection*{Correctness}
+% We can retrieve \Delta in O(n)
+% 1. Prove after connectin the dots, while we get x-monotone correctly
+% 
+% \subsection*{Running timek}
+% - Number of \Delta is O(n) connect the dot take O(n)
+% - Triangulatemonotonepolygon O(n)
+
+
+\end{document}
