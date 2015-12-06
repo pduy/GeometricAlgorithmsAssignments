@@ -4,38 +4,38 @@
 \subsection*{a}
 Search path to $q$ at $D_j$ becomes longer if $q$ is in a trapezoid that was just
 created by the latest insertion. We also know that at most 4 line segments define
-that trapezoids. Thus, the probability the search part becomes longer is :
+that trapezoids. Thus, the probability that the search part becomes longer is :
 $$
-Pr[\text{Search Path to $q$ become longer at step $i$}] = 4/i
+Pr[\text{Search Path to $q$ becomes longer at step $i$}] = 4/i
 $$
 
-Hence, the expected length of the search part increases when comparing at step $j$ and $k$
-where $j<k$ is:
+Hence, the expected increment of the length of the search part at step $k$, comparing to step $j$,
+where $j<k$, is:
 
 \begin{align*}
     \text{Expected Length} &\leq \sum_{i=j}^{k}( 4/i ) \\
     &= 4( \sum_{i=1}^{k}( 1/i ) -  \sum_{i=1}^{j}( 1/i ) ) \\
-    &= 4( 1 + \log_{e}k - 1 - log_{e}j ) \\
+    &\leq 4( 1 + \ln k - 1 - \ln j ) \\
     &= O(\log(k/j))
 \end{align*}
 
 Therefore, the expected time locating $q$ at $D_k$ is $O(\log(k/j))$.
 
 \subsection*{b}
-We observe that vertical decomposition lines will intersect properly with $P$ if 
-the edges that they intersect with have not added into $T$ yet. Hence,
-the probability that $T_j$ have proper intersection with $P$ is :
+We observe that vertical decomposition lines of $e_i$ intersects properly with $P$ if 
+the edges that they intersect with have not been added into $T_i$ yet. Hence,
+the number of proper intersections at $T_i$ is :
 
 $$
-Pr[\text{Proper Intersection between $T_j$ and $P$} ] = (n-j)/(n-1)
+\text{Number of Proper Intersections of $T_i$} = Pr[\text{$T_i$ has proper intersections}] = (n-j)/(n-1)
 $$
 
-Thus, the expected number of proper intersection, $E$, between $T_j$ and $P$ is :
+Thus, the expected number of proper intersections, $E$, between $T_j$ and $P$ is:
 
 \begin{align*}
     \text{E} &= \sum_{i=1}^{n}(n-i)/(n-1) \\
-    &= \frac{1}{n-1}\frac{(n-1)(n-2)}{2} \\
-    &= \frac{n-2}{2} \\
+    &= \frac{1}{n-1}\frac{(n-1)n}{2} \\
+    &= \frac{n}{2} \\
     &= O(n)
 \end{align*}
 
