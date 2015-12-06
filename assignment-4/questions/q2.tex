@@ -14,7 +14,9 @@ where $j<k$ is:
 
 \begin{align*}
     \text{Expected Length} &\leq \sum_{i=j}^{k}( 4/i ) \\
-    &\leq 4( \sum_{i=1}^{k}( 1/i ) -  \sum_{i=1}^{j}( 1/i ) ) \\
-    &\leq 4( 1 + \log_{e}k - 1 - log_{e}j ) \\
-    &\leq O(\log(k/j))
+    &= 4( \sum_{i=1}^{k}( 1/i ) -  \sum_{i=1}^{j}( 1/i ) ) \\
+    &= 4( 1 + \log_{e}k - 1 - log_{e}j ) \\
+    &= O(\log(k/j))
 \end{align*}
+
+Therefore, the expected time locating $q$ at $D_k$ is $O(\log(k/j))$.
