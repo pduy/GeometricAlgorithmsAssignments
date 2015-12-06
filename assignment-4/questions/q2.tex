@@ -38,3 +38,34 @@ Thus, the expected number of proper intersection, $E$, between $T_j$ and $P$ is 
     &= \frac{n-2}{2} \\
     &= O(n)
 \end{align*}
+
+\subsection*{c}
+We analyse the expected running time of the algorihtm by dividing it into subprocesses.
+
+For Line 4 - 5, the insertion takes $O(i/2^{(h-1)^2})$ as proven in $(a)$. Hence, in total
+expected running time of the process takes, $R_{4\rightarrow5}$, is :
+\begin{align*}
+R_{4\rightarrow5} &= \sum_{i=2^{(h-1)^2}}^{2^{h^2}}O(i/2^{(h-1)^2}) \\
+&= \frac{1}{2^{(h-1)^2}} ( \sum_{i=1}^{2^{h^2}}O(i) - \sum_{i=1}^{2^{(h-1)^2}}O(i) ) \\
+&= \frac{1}{2^{(h-1)^2}} ( \frac{2^{h^2}(2^{h^2} + 1)}{2} - \frac{2^{(h-1)^2}(2^{(h-1)^2} - 1)}{2} ) \\
+&= \frac{O(2^{2h^2})}{2^{(h-1)^2}} \\
+&= O(2^{h^2})
+\end{align*}
+
+For Line 6, the running time of finding the leaf containing each vertex of $P$, is depend
+on the number of proper intersections between $P$ and $T$. Thus, $R_{6}$ is:
+\begin{align*}
+    R_6 &= O(n)
+\end{align*}
+
+Hence $R_{3\rightarrow6}$ is:
+
+\begin{align*}
+    R_{3\rightarrow6} &= \sum_{h=1}^{\sqrt{\log{n}}}( O(2^{h^2}) + O(n) ) \\
+    &= O(n\sqrt{\log{n}})
+\end{align*}
+
+For Line 8, because we start from $D_{n}$, hence, $R_{8}$ is $O(n)$ and we do Line 7 only
+2 times, $n+1$ to $n$. Thus, $R_{7\rightarrow8}$ is $O(n)$.
+
+Therefore, the expected running time of the algorithm is $O(n\sqrt{\log{n}})$.
