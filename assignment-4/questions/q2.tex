@@ -20,3 +20,21 @@ where $j<k$ is:
 \end{align*}
 
 Therefore, the expected time locating $q$ at $D_k$ is $O(\log(k/j))$.
+
+\subsection*{b}
+We observe that vertical decomposition lines will intersect properly with $P$ if 
+the edges that they intersect with have not added into $T$ yet. Hence,
+the probability that $T_j$ have proper intersection with $P$ is :
+
+$$
+Pr[\text{Proper Intersection between $T_j$ and $P$} ] = (n-j)/(n-1)
+$$
+
+Thus, the expected number of proper intersection, $E$, between $T_j$ and $P$ is :
+
+\begin{align*}
+    \text{E} &= \sum_{i=1}^{n}(n-i)/(n-1) \\
+    &= \frac{1}{n-1}\frac{(n-1)(n-2)}{2} \\
+    &= \frac{n-2}{2} \\
+    &= O(n)
+\end{align*}
