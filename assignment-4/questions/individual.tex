@@ -17,7 +17,7 @@
 
 \section*{Q1}
 
-As we know, a given simple polygon $P$ has $n$ vertices. Thus, its trapezoidal
+As we know, a given simple polygon $P$ has $n$ vertices, $n$ edges. Thus, its trapezoidal
 map $\tau$ has $3n+1$ trapezoids, or $O(n)$.
 
 Regarding Vertical Decomposition definition, there is not line crossing a
@@ -41,17 +41,44 @@ The algorithm works as follows:
 
 \begin{enumerate}
     \item Traverse all $\Delta_i \in \tau \cap P$. If $leftp(\Delta_i)$
-    and $rightp(\Delta_i)$ are not the same edge of $P$, connect them together.
+    and $rightp(\Delta_i)$ are not the same edge of $P$, connect them together
+    as shown in Figure \ref{fig:x-monotone}.
     \item Apply $TriangulateMonotonePolygon$
 \end{enumerate}
 
-% \subsection*{Correctness}
-% We can retrieve \Delta in O(n)
-% 1. Prove after connectin the dots, while we get x-monotone correctly
-% 
-% \subsection*{Running timek}
-% - Number of \Delta is O(n) connect the dot take O(n)
-% - Triangulatemonotonepolygon O(n)
+\begin{center}
+    \label{figure1}
+    \begin{figure}[h]
+    \centering
+    \includegraphics[width=5cm]{x-monotone}\\
+    \caption{Connecting between $leftp(\Delta_i)$ and $rightp(\Delta_i)$ } \label{fig:x-monotone}
+    \end{figure}
+\end{center}
 
+\subsection*{Correctness}
+We know already that every edge connecting $leftp(\Delta_i)$ and $rightp(\Delta_i)$
+is a valid splitting edge. Thus, one thing that remained to prove is
+after step 1, the subpolygons are x-monotone.
+
+
+According to monotone definition, a polygon will be monotone if there is no
+split and merge vertex in the polygon. We know that only $leftp(\Delta_i)$ can be
+a merge vertex and only $rightp(\Delta_i)$ can be a split vertex.
+
+Considering $leftp(\Delta_i)$, if it is a merge vertex. After step 1, it will be
+connected to $rightp(\Delta_i)$. Such vertex will split the polygon into 2 x-monotone
+subpolygons. On the other hand, if $rightp(\Delta_i)$ if it is a split vertex.
+It will be connected to $leftp(\Delta_{i})$ which also split polygon into 2 x-monotone
+subpolygons. Hence, after step 1, $P$ will be divided into x-monotone subpolygons.
+
+Because, in step 2, we use $TriangulateMonotonePolygon$ which has been proved correctness already.
+
+Therefore, with this reasoning, we can conclude that the algorithm report correct result.
+
+\subsection*{Running time}
+We know that the number of trapezoids in $\tau$ is $O(n)$. Thus, traversal each trapezoid $\Delta$ that
+are in $P$ and connect $leftp(\Delta_i)$ and $rightp(\Delta_i)$ takes $O(n)$. Because,
+$TriangulateMonotonePolygon$ also takes $O(n)$. Therefore, the algorithm can compute
+a triangulation of $P$ in $O(n)$.
 
 \end{document}
