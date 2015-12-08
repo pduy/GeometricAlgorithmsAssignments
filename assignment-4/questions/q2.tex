@@ -42,10 +42,11 @@ Thus, the expected number of proper intersections, $E$, between $T_j$ and $P$ is
 \subsection*{c}
 We analyze the expected running time of the algorithm by dividing it into subprocesses.
 
-For Line 4 - 5, the insertion takes $O(i/2^{(h-1)^2})$ as being proven in $(a)$. Hence, in total
+For Line 4 - 5, the insertion takes $O(\log(i/2^{(h-1)^2}))$ as being proven in $(a)$. Hence, in total
 expected running time of the process takes, $R_{4\rightarrow5}$, is :
 \begin{align*}
 R_{4\rightarrow5} &= \sum_{i=2^{(h-1)^2}}^{2^{h^2}}O(i/2^{(h-1)^2}) \\
+&\le \sum_{i=2^{(h-1)^2}}^{2^{h^2}}O(\log(i/2^{(h-1)^2})) \\
 &= \frac{1}{2^{(h-1)^2}} ( \sum_{i=1}^{2^{h^2}}O(i) - \sum_{i=1}^{2^{(h-1)^2}}O(i) ) \\
 &= \frac{1}{2^{(h-1)^2}} ( \frac{2^{h^2}(2^{h^2} + 1)}{2} - \frac{2^{(h-1)^2}(2^{(h-1)^2} - 1)}{2} ) \\
 &= \frac{O(2^{2h^2})}{2^{(h-1)^2}} \\
