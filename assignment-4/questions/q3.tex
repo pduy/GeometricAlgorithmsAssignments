@@ -3,15 +3,18 @@
 \subsection*{a}
 Let $s_{i^*}$ be the region in the dual plane corresponding to a line segment in $S$ and $l^*$ is the point
 of $l$ in the dual plane.  Thus, the problem can be formulated as finding the number
-of $s_{i^*}$ that $p^*$ belongs to.
+of $s_{i^*} \in S^*$ that $p^*$ belongs to.
 
 \subsection*{b}
-Now the input turns out to be a set of $n$ pairs of intersected lines and a query point $p$. The data structure we use is the DAG $D$ used in the trapezoidal 
-decomposition. Every trapezoid is stored in a leave of $D$, and stores the information about how many regions (corresponding to the original line segments) it belongs to. \\
+Now the input turns out to be a set of $n$ pairs of intersected lines and a query point $p$.  We know that arrangement of the segments $A(S^*)$ has complexity $O(n^2)$,
+$O(n^2)$ vertices and edges. Thus, we can use a DAG $D$ which is used in vertical decomposition as a query data structure.
+Every trapezoid is stored in a leave of $D$, and stores the information about how many regions (corresponding to the original line segments) it belongs to.
 
-For any query line $l$, we convert it into the dual point $p$, then search for the trapezoid containing $p$ in $D$ and extract the number of regions that $D$ is inside. \\
+Because we build $D$ from $A(S^*)$, the expected storage complexity of $D$ becomes $O(n^2)$.
+Moreover, the depth of $D$ is $O(\log n^2)$, thus, the expected query time for searching a point is still $O(\log n)$.
 
 The number of intersections among the lines are $O(n^2)$. So the space complexity if $O(n^2)$. The searching for a trapezoid in $D$ takes $O(\log n)$ time, and the number of intersections is stored inside each trapezoid. Thus it is the data structure that we want. \\
+
 \subsection*{c}
 To construct the data structure, we firstly build the DCEL from our data ($n$ pairs of intersected lines). Then use that DCEL as the input of the randomized incremental trapezoidal map construction. We follow exactly the algorithm from the lecture to construct $T$ and $D$. The special thing here is that we have to maintain at each trapezoid the number of regions (corresponding to line segments) it intersects. \\
 
