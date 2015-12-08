@@ -6,3 +6,9 @@ of $l$ in the dual plane.  Thus, the problem can be formulated as finding the nu
 of $s_{i^*}$ that $p^*$ belongs to.
 
 \subsection*{b}
+Now the input turns out to be a set of $n$ pairs of intersected lines and a query point $p$. The data structure we use is the DAG $D$ used in the trapezoidal 
+decomposition. Every trapezoid is stored in a leave of $D$, and stores the information about how many regions (corresponding to the original line segments) it belongs to. \\
+
+For any query line $l$, we convert it into the dual point $p$, then search for the trapezoid containing $p$ in $D$ and extract the number of regions that $D$ is inside. \\
+
+
