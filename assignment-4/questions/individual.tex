@@ -20,7 +20,7 @@
 As we know, a given simple polygon $P$ has $n$ vertices, $n$ edges. Thus, its trapezoidal
 map $\tau$ has $3n+1$ trapezoids, or $O(n)$.
 
-Regarding Vertical Decomposition definition, there is not line crossing a
+Regarding Vertical Decomposition definition, there is no line crossing a
 trapezoid. Moreover, if one traverses from left to right and connect $leftp(\Delta_i)$
 and $rightp(\Delta_i)$ together for each trapezoid $\Delta_i$, the approach will be similar
 to $MakeMonotone$ algorithm that has a sweep line moving horizontally.
@@ -57,7 +57,7 @@ The algorithm works as follows:
 
 \subsection*{Correctness}
 We know already that every edge connecting $leftp(\Delta_i)$ and $rightp(\Delta_i)$
-is a valid splitting edge. Thus, one thing that remained to prove is
+is a valid splitting edge. Thus, one thing remained to prove is
 after step 1, the subpolygons are x-monotone.
 
 
