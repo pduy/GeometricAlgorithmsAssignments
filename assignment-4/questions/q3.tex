@@ -11,4 +11,15 @@ decomposition. Every trapezoid is stored in a leave of $D$, and stores the infor
 
 For any query line $l$, we convert it into the dual point $p$, then search for the trapezoid containing $p$ in $D$ and extract the number of regions that $D$ is inside. \\
 
+The number of intersections among the lines are $O(n^2)$. So the space complexity if $O(n^2)$. The searching for a trapezoid in $D$ takes $O(\log n)$ time, and the number of intersections is stored inside each trapezoid. Thus it is the data structure that we want. \\
+\subsection*{c}
+To construct the data structure, we firstly build the DCEL from our data ($n$ pairs of intersected lines). Then use that DCEL as the input of the randomized incremental trapezoidal map construction. We follow exactly the algorithm from the lecture to construct $T$ and $D$. The special thing here is that we have to maintain at each trapezoid the number of regions (corresponding to line segments) it intersects. \\
+
+(Indeed, we have not figured out how to count such numbers in particular. But our observation is that the number of intersections for neighborhood trapezoids differ only by 1. Based on that, we think that there is possible to implement a counter method to maintain those numbers, which mean we do not need to re-traverse all the regions to find the number of intersections of each trapezoid). \\
+
+The construction time of the DCEL is $O(n^2)$. \\
+
+The number of line segment created by $n$ lines is $O(n^2)$. \\
+
+Thus the construction of the structure $T$ and $D$ takes $O(n^2 \log n)$ time. \\
 
