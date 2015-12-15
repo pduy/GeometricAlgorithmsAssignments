@@ -1,17 +1,11 @@
 % !TEX root = ../main.tex
 \section*{3}
 \subsection*{a}
-Let $s_{i^*}$ be the region in the dual plane corresponding to a line segment in $S$ and $l^*$ is the point
-of $l$ in the dual plane.  Thus, the problem can be formulated as finding the number
-of $s_{i^*} \in S^*$ that $p^*$ belongs to.
 
 \subsection*{b}
-Now the input turns out to be a set of $n$ pairs of intersected lines and a query point $p$.  We know that arrangement of the segments $A(S^*)$ has complexity $O(n^2)$,
-$O(n^2)$ vertices and edges. Thus, we can use a DAG $D$ which is used in vertical decomposition as a query data structure.
-Every trapezoid is stored in a leave of $D$, and stores the information about how many regions (corresponding to the original line segments) it belongs to.
+For each edge $pq$ in EMST of $P$, the circle that has $pq$ as a diameter will not contain any point inside.
+Hence, all edges in EMST are valid in $Gabiel$ of $P$.
 
-Because we build $D$ from $A(S^*)$, the expected storage complexity of $D$ becomes $O(n^2)$.
-Moreover, the depth of $D$ is $O(\log n^2)$, thus, the expected query time for searching a point is still $O(\log n)$.
-
-\subsection*{c}
-
+To prove the statement, we suppose there is a point $k$ inside the circle built by $pq$ in EMST.
+$pk$ and $qk$ will become smaller than $pq$. Thus, $pq$ will not be longer exist in EMST.
+As a result, both $Gabriel$ and EMTS will not contain $pq$.
