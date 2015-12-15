@@ -20,3 +20,13 @@ triangulation $T$ of $n$. We claim that :
 
 To prove LB, it is obvious to see from Figure \ref{fig:smallest-triangulation}
 the smallest triangulation, that the maximum number of intersection is $2$.
+
+% Prove upper bound here
+
+In naive approach, the running time of finding average intersection is $O(n^3)$.
+To improve the efficiency, the data structure proven in Exercise Week 4 Question 3,
+is used. Such that we can query the number of intersection between an arbitrary line and
+edges in $O(\log{n})$ expected time.
+
+Thus, we can find the average number of intersected edges with all lines through
+a pair of input points.
