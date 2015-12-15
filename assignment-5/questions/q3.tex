@@ -1,0 +1,21 @@
+% !TEX root = ../main.tex
+\section*{3}
+\subsection*{a}
+
+\subsection*{b}
+For each edge $pq$ in EMST of $P$, the circle that has $pq$ as a diameter will not contain any point inside.
+Hence, all edges in EMST are valid in $Gabiel$ of $P$.
+
+To prove the statement, we suppose there is a point $k$ inside the circle built by $pq$ in EMST.
+$pk$ and $qk$ will become smaller than $pq$. Thus, $pq$ will not be longer exist in EMST.
+As a result, both $Gabriel$ and EMTS will not contain $pq$.
+
+\subsection*{c}
+Suppose that the Delaunay graph of $P$ does not contain the Gabriel graph of $P$, which means there are a pair of points ${p, q}$ that are not in the same triangle, but the circle $c$ taking $pq$ as the diameter is empty. We will prove that the triangles containing $p$ and $q$ are illegal. \\
+
+Indeed, let $q_1, q_2$ be the points in the same triangle with $q$. We know that the circle $c$ is empty, so both $q_1$ and $q_2$ are outside of $c$. Thus, the 
+circumcircle of $\bigtriangleup q_1 q q_2$ is bigger than $c$, which implies that its diameter is larger than $pq$. Then, this circumcircle contains $p$. So $\bigtriangleup q_1 q q_2$ is not a valid triangle. \\
+
+Similarly, we can prove that the triangle containing $p$ is also invalid. Thus, the graph is not the Delaunay graph anymore. \\
+
+By contradiction, we have just proven that the Delaunay graph of $P$ contains the Gabiel graph of $P$. \\
