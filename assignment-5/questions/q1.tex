@@ -7,7 +7,7 @@ of maximum number that an arbitrary line can intersect with a
 triangulation $T$ of $n$. We claim that :
 
 \begin{align*}
-    \mathrm{LB} &= 2\\
+    \mathrm{LB} &= \text{No. Triangles in T} + 1\\
     \mathrm{UB} &= \text{No. Triangles in T} + 1
 \end{align*}
 \begin{figure}[h]
@@ -19,7 +19,7 @@ triangulation $T$ of $n$. We claim that :
 \end{figure}
 
 To prove LB, it is obvious to see from Figure \ref{fig:smallest-triangulation}
-the smallest triangulation, that the maximum number of intersection is $2$.
+,the the smallest triangulation having 1 triangle, that the maximum number of intersection is $2$.
 For UB, we have observed that for 1 triangle the number of intersetion is $2$.
 which is the number of triangle plus 1. Let assume that for $k$ triangles
 the max number of intersection is $k+1$. Next, if we add one more triangle,
