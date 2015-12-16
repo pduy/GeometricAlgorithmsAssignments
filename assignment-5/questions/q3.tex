@@ -1,21 +1,44 @@
 % !TEX root = ../main.tex
 \section*{3}
 \subsection*{a}
+In this section, we have to prove that the edge set of the EMST of $P$ contains the edges of a nearest neighbor graph.\\
+
+Assume that there is an edge between the points $ a $ and $ b $ of the nearest neighbor graph which is not in the EMST, then we could replace the edge containing $a$ by $ab$ in the tree and that will decrease the total edge length of the EMST, because the current edge containing $a$ is longer than $ab$. So the EMST is not EMST. This contradiction proves the statement.
 
 \subsection*{b}
-For each edge $pq$ in EMST of $P$, the circle that has $pq$ as a diameter will not contain any point inside.
-Hence, all edges in EMST are valid in $Gabiel$ of $P$.
+In this section, we have to prove that the set of edges of the Gabiel graph of $P$ contains and EMST of $P$. \\
 
-To prove the statement, we suppose there is a point $k$ inside the circle built by $pq$ in EMST.
-$pk$ and $qk$ will become smaller than $pq$. Thus, $pq$ will not be longer exist in EMST.
-As a result, both $Gabriel$ and EMTS will not contain $pq$.
+Assume that the edge set of the Gabiel graph does not contain an EMST of $P$, which means there is an edge $pq$ in the EMST that is not in the Gabiel graph. \\
+
+This implies there is a point $k$ inside the circle taking $pq$ as the diameter. Hence,
+$pk$ and $qk$ will become smaller than $pq$. Thus, $pq$ is not a valid edge of the EMST.
+This contradiction proves the statement.
 
 \subsection*{c}
-Suppose that the Delaunay graph of $P$ does not contain the Gabriel graph of $P$, which means there are a pair of points ${p, q}$ that are not in the same triangle, but the circle $c$ taking $pq$ as the diameter is empty. We will prove that the triangles containing $p$ and $q$ are illegal. \\
+Suppose that the Delaunay graph of $P$ does not contain the Gabriel graph of $P$, which means there are a pair of points ${p, q}$ that are not in the same triangle, but the circle $c$ taking $pq$ as the diameter is empty. We will prove that at least a triangle in the triangulation is illegal. \\
 
-Indeed, let $q_1, q_2$ be the points in the same triangle with $q$. We know that the circle $c$ is empty, so both $q_1$ and $q_2$ are outside of $c$. Thus, the 
+Indeed, there is several triangles between $p$ and $q$ because $pq$ is not a triangle edge. Let $q_1, q_2$ be 2 points in one of these triangles, which contains $p$.
+We know that the circle $c$ is empty, so both $q_1$ and $q_2$ are outside of $c$. Thus, the 
 circumcircle of $\bigtriangleup q_1 q q_2$ is bigger than $c$, which implies that its diameter is larger than $pq$. Then, this circumcircle contains $p$. So $\bigtriangleup q_1 q q_2$ is not a valid triangle. \\
 
 Similarly, we can prove that the triangle containing $p$ is also invalid. Thus, the graph is not the Delaunay graph anymore. \\
 
-By contradiction, we have just proven that the Delaunay graph of $P$ contains the Gabiel graph of $P$. \\
+By contradiction, we have just proven that the Delaunay graph of $P$ contains the Gabiel graph of $P$.
+
+\subsection*{d}
+
+Firstly, we have to prove that if $pq$ is an edge in the Gabriel graph, then the Delaunay edge between $p$ and $q$ intersects its dual Voronoi edge.\\
+
+Assume $\bigtriangleup pvq$ a Delaunay triangle. Due to Gabriel graph definition, $v$ should not be in the region of the circle taking $pq$ as the diameter.\\
+
+We know that the common intersection of the 3 Voronoi edges is the circumcenter of $\bigtriangleup pvq$. In this case, $\angle pvq \leq \pi / 2$ because v is outside of the circle, so the circumcenter is inside the triangle region. Thus, the Voronoi edge between $p$ and $q$ intersects $pq$.
+
+Secondly, we have to prove that if the Delaunay edge between $p$ and $q$ intersects its dual Voronoi edge, then $pq$ is an edge in the Gabriel graph. \\
+
+Denote $s$ the common intersection of bisectors $pq$, $qv$ and $pv$. $s$ is thus equidistant from $p, q, v$. \\
+
+Because the Delaunay edge between $p$ and $q$ intersects its dual Voronoi edge, $s$ is in the half-plane defined by $pq$ and containing $v$. \\
+
+We know that $sv = sq = sp = r$ where $r$ is the radius of the circle taking $pq$ as the diameter. Therefore, $v$ is not in the circle inner region.\\
+
+This completes the proof.
