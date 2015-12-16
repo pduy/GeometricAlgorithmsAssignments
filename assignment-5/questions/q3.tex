@@ -31,4 +31,14 @@ Firstly, we have to prove that if $pq$ is an edge in the Gabriel graph, then the
 
 Let $v$ be the third point in the Delaunay triangle containing $p$ and $q$, then $v$ is not in the region of the circle taking $pq$ as the diameter, due to the Gabriel graph definition. \\
 
-We know that the common intersection of the 3 Voronoi edges is the circumcenter of $\bigtriangleup pvq$. In this case, $\angle pvq \leq \pi / 2$ because v is outside of the circle, so the circumcenter is inside the triangle region. Thus, the Voronoi 
+We know that the common intersection of the 3 Voronoi edges is the circumcenter of $\bigtriangleup pvq$. In this case, $\angle pvq \leq \pi / 2$ because v is outside of the circle, so the circumcenter is inside the triangle region. Thus, the Voronoi edge between $p$ and $q$ intersects $pq$.
+
+Secondly, we have to prove that if the Delaunay edge between $p$ and $q$ intersects its dual Voronoi edge, then $pq$ is an edge in the Gabriel graph. \\
+
+Let $v$ be the third point in the Delaunay triangle containing $p$ and $q$, then the common intersection $s$ is the circumcenter of $\bigtriangleup pvq$. $s$ is thus equidistant from $p, q, v$. \\
+
+Because the Delaunay edge between $p$ and $q$ intersects its dual Voronoi edge, $s$ is in the half-plane defined by $pq$ and containing $v$. \\
+
+We know that $sv = sq = sp = r$ where $r$ is the radius of the circle taking $pq$ as the diameter. Therefore, $v$ is not in the circle inner region.\\
+
+This completes the proof.
