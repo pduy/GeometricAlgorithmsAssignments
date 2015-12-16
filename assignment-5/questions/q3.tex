@@ -15,11 +15,20 @@ $pk$ and $qk$ will become smaller than $pq$. Thus, $pq$ is not a valid edge of t
 This contradiction proves the statement.
 
 \subsection*{c}
-Suppose that the Delaunay graph of $P$ does not contain the Gabriel graph of $P$, which means there are a pair of points ${p, q}$ that are not in the same triangle, but the circle $c$ taking $pq$ as the diameter is empty. We will prove that the triangles containing $p$ and $q$ are illegal. \\
+Suppose that the Delaunay graph of $P$ does not contain the Gabriel graph of $P$, which means there are a pair of points ${p, q}$ that are not in the same triangle, but the circle $c$ taking $pq$ as the diameter is empty. We will prove that at least a triangle in the triangulation is illegal. \\
 
-Indeed, let $q_1, q_2$ be the points in the same triangle with $q$. We know that the circle $c$ is empty, so both $q_1$ and $q_2$ are outside of $c$. Thus, the 
+Indeed, there is several triangles between $p$ and $q$ because $pq$ is not a triangle edge. Let $q_1, q_2$ be 2 points in one of these triangles, which contains $p$.
+We know that the circle $c$ is empty, so both $q_1$ and $q_2$ are outside of $c$. Thus, the 
 circumcircle of $\bigtriangleup q_1 q q_2$ is bigger than $c$, which implies that its diameter is larger than $pq$. Then, this circumcircle contains $p$. So $\bigtriangleup q_1 q q_2$ is not a valid triangle. \\
 
 Similarly, we can prove that the triangle containing $p$ is also invalid. Thus, the graph is not the Delaunay graph anymore. \\
 
 By contradiction, we have just proven that the Delaunay graph of $P$ contains the Gabiel graph of $P$.
+
+\subsection*{d}
+
+Firstly, we have to prove that if $pq$ is an edge in the Gabriel graph, then the Delaunay edge between $p$ and $q$ intersects its dual Voronoi edge.\\
+
+Let $v$ be the third point in the Delaunay triangle containing $p$ and $q$, then $v$ is not in the region of the circle taking $pq$ as the diameter, due to the Gabriel graph definition. \\
+
+We know that the common intersection of the 3 Voronoi edges is the circumcenter of $\bigtriangleup pvq$. In this case, $\angle pvq \leq \pi / 2$ because v is outside of the circle, so the circumcenter is inside the triangle region. Thus, the Voronoi 
